@@ -265,6 +265,32 @@ input:focus, select:focus, textarea:focus { border-color: var(--kcz-primary); ou
 @media (max-width: 1000px) { #balancesheet .report-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; } }
 @media (max-width: 650px) { #balancesheet #bsResult > .card { padding: 10px; } #balancesheet #bsPeriodTitle { font-size: .95rem; } #balancesheet .report-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; } #balancesheet .report-box { padding: 8px; font-size: .76rem; } #balancesheet .report-box strong { font-size: .95rem; } }
 
+
+/* Due Collection page — compact, balanced layout */
+#due .page-title{font-size:1.22rem!important;line-height:1.25!important;margin:0 0 10px!important;color:#173b40}
+#due .card{padding:12px 14px!important;margin-bottom:11px!important;border-radius:11px!important}
+#due .card h2{font-size:.96rem!important;line-height:1.3!important;margin:0 0 9px!important;color:#23434a}
+#due h3{font-size:.88rem!important;line-height:1.3!important;margin:12px 0 7px!important}
+#due .kpi-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:9px!important;margin-bottom:11px!important}
+#due .kpi{min-width:0!important;min-height:0!important;padding:10px 11px!important;border:1px solid #dce8e5!important;border-radius:10px!important;background:linear-gradient(145deg,#fff,#f8fbfa)!important;box-shadow:0 2px 6px rgba(18,59,54,.045)!important}
+#due .kpi .label{font-size:.75rem!important;line-height:1.3!important;font-weight:650!important;color:#61716f!important;margin:0!important}
+#due .kpi .value{font-size:1.08rem!important;line-height:1.25!important;font-weight:750!important;margin:5px 0 0!important;color:#174f49!important;overflow-wrap:anywhere}
+#due .search-row{margin-bottom:8px!important}
+#due .search-row input{min-height:36px!important;padding:7px 10px!important;font-size:.84rem!important}
+#due .grid{gap:10px!important}
+#due .field{gap:4px!important}
+#due .field label{font-size:.78rem!important;line-height:1.3!important}
+#due .field input,#due .field select,#due .field textarea{min-height:36px!important;padding:7px 9px!important;font-size:.84rem!important;border-radius:7px!important}
+#due .field textarea{min-height:60px!important}
+#due .actions{gap:7px!important;margin-top:9px!important}
+#due .actions .btn{padding:8px 11px!important;font-size:.8rem!important;border-radius:8px!important}
+#due .data-table{font-size:.78rem!important;line-height:1.35!important}
+#due .data-table th,#due .data-table td{padding:6px 8px!important;vertical-align:middle!important}
+#due .data-table th{font-size:.73rem!important;white-space:nowrap}
+#due .btn-small{padding:6px 9px!important;font-size:.75rem!important}
+@media(max-width:1000px){#due .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:650px){#due .page-title{font-size:1.08rem!important;margin-bottom:8px!important}#due .card{padding:10px!important;margin-bottom:9px!important}#due .card h2{font-size:.9rem!important}#due .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}#due .kpi{padding:9px!important}#due .kpi .label{font-size:.7rem!important}#due .kpi .value{font-size:.98rem!important}#due .grid{gap:8px!important}#due .field label{font-size:.74rem!important}#due .field input,#due .field select,#due .field textarea{font-size:.8rem!important}#due .data-table{font-size:.74rem!important}#due .data-table th,#due .data-table td{padding:6px 7px!important}}
+
 </style>
 
 <style id="dashboard-uniform-text-fix">
