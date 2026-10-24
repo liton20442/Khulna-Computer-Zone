@@ -219,6 +219,35 @@ input:focus, select:focus, textarea:focus { border-color: var(--kcz-primary); ou
   #dashboard > .business-glance .kpi .value { font-size: 1.08rem !important; }
 }
 
+
+/* Compact, polished dashboard cards — visual-only override */
+#dashboard.active { gap: 11px !important; }
+#dashboard > .card,
+#dashboard > .business-glance { padding: 11px 13px !important; margin: 0 !important; border-radius: 12px !important; }
+#dashboard .card > .section-title,
+#dashboard > .business-glance > .section-title { font-size: .96rem !important; line-height: 1.25 !important; margin: 0 0 8px !important; padding: 0 !important; }
+#dashboard .overview-grid { gap: 8px !important; }
+#dashboard .overview-box { padding: 8px 9px !important; min-height: 0 !important; border-radius: 9px !important; }
+#dashboard .overview-box .small { font-size: .76rem !important; line-height: 1.25 !important; }
+#dashboard .overview-box strong { font-size: 1.05rem !important; line-height: 1.2 !important; margin-top: 3px !important; }
+#dashboard > .business-glance > .glance-grid { gap: 8px !important; }
+#dashboard > .business-glance .kpi { min-height: 0 !important; padding: 9px 10px !important; border-radius: 10px !important; }
+#dashboard > .business-glance .kpi .label { font-size: .76rem !important; line-height: 1.25 !important; margin-bottom: 3px !important; }
+#dashboard > .business-glance .kpi .value { font-size: 1.08rem !important; line-height: 1.2 !important; }
+#dashboard #incomeChart { height: 78px !important; max-height: 78px !important; }
+#dashboard .note, #dashboard .info { font-size: .76rem !important; line-height: 1.3 !important; margin-top: 5px !important; }
+#dashboard #todaySummary { line-height: 1.35 !important; }
+#dashboard .today-summary { gap: 7px !important; }
+#dashboard .today-item { padding: 8px 10px !important; min-height: 0 !important; border-radius: 9px !important; }
+#dashboard .backup-actions { gap: 8px !important; }
+#dashboard .backup-actions button { padding: 8px 14px !important; }
+@media (max-width: 900px) {
+  #dashboard.active { gap: 9px !important; }
+  #dashboard > .card, #dashboard > .business-glance { padding: 10px !important; }
+  #dashboard > .business-glance .kpi { padding: 8px !important; }
+  #dashboard #incomeChart { height: 72px !important; max-height: 72px !important; }
+}
+
 </style>
 </head>
 <body>
