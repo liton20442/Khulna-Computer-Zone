@@ -79,9 +79,6 @@ body{background:#f5f7f9}.app-header{padding:10px 20px;background:#123b46}.brand{
 <div class="overview-box"><div class="small">Today's Transactions</div><strong id="todayTransactions">0</strong></div><div class="overview-box"><div class="small">Active Service Jobs</div><strong id="dashActiveServices">0</strong></div>
 </div></div>
 <div class="card"><h2 class="section-title">Today's Activity</h2><div id="todaySummary" class="muted">No transactions today.</div></div>
-<div class="card"><h2 class="section-title">Quick Actions</h2><div class="dashboard-actions">
-<button onclick="showPage('products')">➕ Add Product</button><button onclick="showPage('purchase')">🛒 New Purchase</button><button onclick="showPage('sales')">💰 New Sale</button><button onclick="showPage('due')">💵 Collect Due</button>
-</div></div>
 <div class="card"><h2 class="section-title">Backup & Restore</h2><div class="dashboard-actions backup-actions">
 <button onclick="backupData()">☁️ Backup</button><button onclick="document.getElementById('restoreFile').click()">♻️ Restore Backup</button>
 <input id="restoreFile" type="file" accept="application/json,.json" class="hidden" onchange="restoreBackup(this)">
