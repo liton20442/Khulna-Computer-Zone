@@ -392,7 +392,7 @@ function populateVariantOptions(type,preserveNumber='',preserveVolt=''){
  const selectedNumber=ns.value;
  const filtered=selectedNumber?variants.filter(p=>(p.number??p.partNumber??'')===selectedNumber):variants;
  const volts=unique(filtered.map(p=>p.volt??p.voltage??''));
- fillSelect(vs,volts,type==='purchase'?'Select Brand':'Select Volt');
+ fillSelect(vs,volts,type==='purchase'?'Select Brand':'Select Brand');
  if(volts.includes(preserveVolt)) vs.value=preserveVolt;
 }
 function purchaseProductChanged(silent=false){const oldN=$('purchaseNumber').value,oldV=$('purchaseVolt').value;populateVariantOptions('purchase',oldN,oldV);if(!silent)purchaseVariantChanged()}
