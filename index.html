@@ -568,18 +568,27 @@ function makeBackupFile(){
   return new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
 }
 async function backupData(){
+  // Desktop Chrome-safe download fallback; do not let unsupported share APIs block backup.
+  let url = "";
   try{
-    const blob=makeBackupFile();
-    const stamp=new Date().toISOString().replace(/[:.]/g,'-');
-    const fileName=`khulna-computer-zone-backup-${stamp}.json`;
-    const file=new File([blob],fileName,{type:'application/json'});
-    if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
-      await navigator.share({title:'Khulna Computer Zone Backup',text:'Khulna Computer Zone complete backup.',files:[file]});
-      return;
-    }
-    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
-    alert('Backup file saved successfully.');
-  }catch(e){if(e&&e.name==='AbortError')return;console.error(e);alert('Backup could not be created.');}
+    const blob = makeBackupFile();
+    const stamp = new Date().toISOString().replace(/[:.]/g,'-');
+    const fileName = `khulna-computer-zone-backup-${stamp}.json`;
+    url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>{ try{ URL.revokeObjectURL(url); }catch(_){} }, 5000);
+    alert('Backup download started. Check your Downloads folder.');
+  }catch(e){
+    console.error('KCZ backup download error:', e);
+    if(url){ try{ URL.revokeObjectURL(url); }catch(_){} }
+    alert('Backup could not be created. Please try again in Chrome and check Downloads permission.');
+  }
 }
 function restoreBackup(input){
   const file=input.files&&input.files[0];if(!file)return;
