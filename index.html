@@ -355,15 +355,18 @@ input:focus, select:focus, textarea:focus { border-color: var(--kcz-primary); ou
 
 
 /* Logout backup reminder - main app page */
-.exit-backup-overlay{position:fixed;inset:0;z-index:9999;background:rgba(12,32,38,.08);display:flex;align-items:center;justify-content:center;padding:18px}
+.exit-backup-overlay{position:fixed;inset:0;z-index:9999;background:rgba(12,32,38,.08);display:flex;align-items:center;justify-content:center;padding:12px}
 .exit-backup-overlay.hidden{display:none!important}
-.exit-backup-box{width:min(440px,100%);background:#fff;border:1px solid #d8e7e5;border-radius:16px;padding:22px;box-shadow:0 18px 60px rgba(0,0,0,.2);text-align:center;color:#17212b}
-.exit-backup-box h2{margin:0 0 9px;color:#123b46;font-size:1.18rem}
-.exit-backup-box p{margin:0 0 18px;color:#53666d;line-height:1.5;font-size:.94rem}
-.exit-backup-buttons{display:grid;grid-template-columns:1fr;gap:9px}
-.exit-backup-buttons button{width:100%;padding:11px 12px;border-radius:9px;font-weight:700}
-.exit-backup-buttons .backup-primary{background:#0f766e;color:#fff;border:1px solid #0f766e}
-.exit-backup-buttons .backup-secondary{background:#f1f6f6;color:#33474d;border:1px solid #d5e1e3}
+.exit-backup-box{width:min(340px,100%);background:linear-gradient(145deg,#fff 0%,#f2faf8 100%);border:1px solid #cfe3df;border-radius:13px;padding:14px 16px;box-shadow:0 12px 36px rgba(15,55,61,.17);text-align:left;color:#17212b;position:relative}
+.exit-backup-box:before{content:"";display:block;width:32px;height:3px;border-radius:4px;background:linear-gradient(90deg,#0f766e,#79c7b8);margin:0 0 9px}
+.exit-backup-box h2{margin:0 0 5px;color:#123b46;font-size:15px;line-height:1.3;font-weight:750;letter-spacing:-.2px}
+.exit-backup-box p{margin:0 0 11px;color:#53666d;line-height:1.4;font-size:12px}
+.exit-backup-buttons{display:grid;grid-template-columns:1fr;gap:6px}
+.exit-backup-buttons button{width:100%;padding:7px 10px;border-radius:7px;font-size:12px;line-height:1.25;font-weight:650;min-height:31px}
+.exit-backup-buttons button:hover{filter:brightness(.97)}
+.exit-backup-buttons .backup-primary{background:linear-gradient(135deg,#0f766e,#16877d);color:#fff;border:1px solid #0f766e}
+.exit-backup-buttons .backup-secondary{background:#f4f8f8;color:#33474d;border:1px solid #d7e5e3}
+@media(max-width:480px){.exit-backup-box{width:min(315px,100%);padding:13px}.exit-backup-box h2{font-size:14px}.exit-backup-box p{font-size:11.5px}.exit-backup-buttons button{font-size:11.5px;padding:7px}}
 </style>
 
 <style id="dashboard-uniform-text-fix">
@@ -473,8 +476,8 @@ input:focus, select:focus, textarea:focus { border-color: var(--kcz-primary); ou
 </main><div class="footer" id="appFooter">Khulna Computer Zone — Shop Management</div></div>
 <div id="exitBackupReminder" class="exit-backup-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="exitBackupTitle">
   <div class="exit-backup-box">
-    <h2 id="exitBackupTitle">Back up before leaving?</h2>
-    <p>Your shop records are saved in this browser. Create a backup file now so you can restore your data if needed.</p>
+    <h2 id="exitBackupTitle">Before you leave</h2>
+    <p>Keep your shop data safe with a backup before leaving.</p>
     <div class="exit-backup-buttons">
       <button type="button" class="backup-primary" onclick="backupThenLogout()">Backup Now &amp; Logout</button>
       <button type="button" class="backup-secondary" onclick="logoutWithoutBackup()">Logout Without Backup</button>
