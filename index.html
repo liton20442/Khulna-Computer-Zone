@@ -567,18 +567,43 @@ function makeBackupFile(){
   return new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
 }
 async function backupData(){
+  let blob;
   try{
-    const blob=makeBackupFile();
+    blob=makeBackupFile();
+    if(!(blob instanceof Blob) || blob.size===0) throw new Error('Backup data is empty.');
     const stamp=new Date().toISOString().replace(/[:.]/g,'-');
     const fileName=`khulna-computer-zone-backup-${stamp}.json`;
-    const file=new File([blob],fileName,{type:'application/json'});
-    if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
-      await navigator.share({title:'Khulna Computer Zone Backup',text:'Khulna Computer Zone complete backup.',files:[file]});
-      return;
+
+    // Use the system share sheet only when it is clearly supported (typically mobile).
+    // If sharing fails, fall back to a normal browser download instead of failing backup.
+    if(typeof navigator.share==='function' && typeof File==='function'){
+      try{
+        const file=new File([blob],fileName,{type:'application/json'});
+        if(typeof navigator.canShare==='function' && navigator.canShare({files:[file]})){
+          await navigator.share({title:'Khulna Computer Zone Backup',text:'Khulna Computer Zone complete backup.',files:[file]});
+          alert('Backup share completed.');
+          return;
+        }
+      }catch(shareError){
+        if(shareError && shareError.name==='AbortError') return;
+        console.warn('Share option failed; trying browser download.',shareError);
+      }
     }
-    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
-    alert('Backup file saved successfully.');
-  }catch(e){if(e&&e.name==='AbortError')return;console.error(e);alert('Backup could not be created.');}
+
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=fileName;
+    a.style.display='none';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),3000);
+    alert('Backup file download started. Check your Downloads folder.');
+  }catch(e){
+    console.error('KCZ backup failed:',e);
+    alert('Backup could not be created. Please try again or check the browser console.');
+  }
 }
 function restoreBackup(input){
   const file=input.files&&input.files[0];if(!file)return;
