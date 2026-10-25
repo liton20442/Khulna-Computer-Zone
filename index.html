@@ -816,6 +816,11 @@ function authHash(value){return crypto.subtle.digest('SHA-256',new TextEncoder()
 function getAuth(){try{return JSON.parse(localStorage.getItem(AUTH_KEY)||'null')}catch(e){return null}}
 function setupAuthUI(){const account=getAuth();$('authScreen').classList.remove('hidden');$('mainNav').classList.add('hidden');$('appShell').classList.add('hidden');if(!account){$('setupForm').classList.remove('hidden');$('loginForm').classList.add('hidden')}else{$('setupForm').classList.add('hidden');$('loginForm').classList.remove('hidden');$('loginUsername').value=localStorage.getItem('kczRememberedUsername')||'';$('rememberPassword').checked=localStorage.getItem('kczRememberPasswordEnabled')!=='no';$('loginPassword').value=localStorage.getItem('kczRememberPasswordEnabled')==='yes'?(localStorage.getItem('kczRememberedPassword')||''):'';$('loginPassword').placeholder='Enter password';$('loginHelp').textContent='Enter your password to sign in.'}}
 function showAuthenticatedApp(){sessionStorage.setItem('kczActiveLoginSession','yes');$('authScreen').classList.add('hidden');$('mainNav').classList.remove('hidden');$('appShell').classList.remove('hidden');showPage('dashboard');updateDashboard();drawIncomeChart()}
+/* Browser-native confirmation when closing or reloading the app */
+window.addEventListener('beforeunload', function(event){
+  event.preventDefault();
+  event.returnValue = '';
+});
 function logout(){window.kczPageBeforeLogout=document.querySelector('.page.active')?.id||'dashboard';$('exitBackupReminder').classList.remove('hidden');}
 async function backupThenLogout(){const ok=await backupData();if(ok){$('exitBackupReminder').classList.add('hidden');finishLogout();}}
 function logoutWithoutBackup(){ $('exitBackupReminder').classList.add('hidden');finishLogout(); }
