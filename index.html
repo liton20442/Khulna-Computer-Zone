@@ -633,19 +633,57 @@ function makeBackupFile(){
   return new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
 }
 async function backupData(){
-  try{
-    const blob=makeBackupFile();
-    const stamp=new Date().toISOString().replace(/[:.]/g,'-');
-    const fileName=`khulna-computer-zone-backup-${stamp}.json`;
-    const file=new File([blob],fileName,{type:'application/json'});
-    if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
-      await navigator.share({title:'Khulna Computer Zone Backup',text:'Khulna Computer Zone complete backup.',files:[file]});
-      return true;
+  let blob;
+  try {
+    blob = makeBackupFile();
+    if (!blob || !blob.size) throw new Error('Backup data is empty.');
+  } catch (e) {
+    console.error('Backup preparation failed:', e);
+    alert('Backup could not be prepared. Please try again.');
+    return false;
+  }
+
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const fileName = `khulna-computer-zone-backup-${stamp}.json`;
+
+  // Try the share sheet first where supported. If sharing fails or is unavailable,
+  // fall back to a normal browser download instead of failing the whole backup.
+  try {
+    if (typeof navigator.share === 'function' && typeof File === 'function') {
+      const file = new File([blob], fileName, { type: 'application/json' });
+      const canShareFile = typeof navigator.canShare !== 'function' || navigator.canShare({ files: [file] });
+      if (canShareFile) {
+        try {
+          await navigator.share({ title: 'Khulna Computer Zone Backup', text: 'Khulna Computer Zone complete backup.', files: [file] });
+          return true;
+        } catch (shareError) {
+          if (shareError && shareError.name === 'AbortError') return false;
+          console.warn('Share failed; trying browser download:', shareError);
+        }
+      }
     }
-    const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
-    alert('Backup file saved successfully.');
+  } catch (shareSetupError) {
+    console.warn('Share is unavailable; trying browser download:', shareSetupError);
+  }
+
+  try {
+    if (typeof URL.createObjectURL !== 'function') throw new Error('Browser does not support file downloads.');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+    alert('Backup download started. Check your Downloads folder.');
     return true;
-  }catch(e){if(e&&e.name==='AbortError')return false;console.error(e);alert('Backup could not be created.');return false;}
+  } catch (downloadError) {
+    console.error('Backup download failed:', downloadError);
+    alert('Backup could not be created. Please check browser download permissions and try again.');
+    return false;
+  }
 }
 function restoreBackup(input){
   const file=input.files&&input.files[0];if(!file)return;
