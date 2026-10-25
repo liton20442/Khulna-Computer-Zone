@@ -434,8 +434,8 @@ function getProductName(id){return getProduct(id)?.name||''}
 function unique(a){return [...new Set(a.filter(v=>String(v??'').trim()!=='').map(v=>String(v).trim()))]}
 function loadProductNameList(){const dl=$('productNameList');dl.innerHTML=db.products.map(p=>`<option value="${esc(p.name)}"></option>`).join('')}
 function getProductVariants(productName){return db.products.filter(p=>p.name===productName)}
-function fillSelect(el,items,placeholder='Select'){el.innerHTML=`<option value="">${placeholder}</option>`+items.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}
-function loadSupplierList(){fillSelect($('purchaseSupplier'),db.suppliers,'Select Supplier')}
+function fillSelect(el,items,placeholder='Select'){const emptyOption=placeholder?`<option value="">${esc(placeholder)}</option>`:'<option value="" hidden></option>';el.innerHTML=emptyOption+items.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}
+function loadSupplierList(){fillSelect($('purchaseSupplier'),db.suppliers,'')}
 function addSupplier(){const s=$('newSupplier').value.trim();if(!s)return alert('Enter a supplier name.');if(!db.suppliers.includes(s))db.suppliers.push(s);saveDB();loadSupplierList();$('purchaseSupplier').value=s;$('newSupplier').value=''}
 function saveProduct(){
  const id=$('productId').value,name=$('productName').value.trim(),number=$('productNumber').value.trim(),volt=$('productVolt').value.trim(),salePrice=$('productSalePrice').value.trim(),other=$('productOther').value.trim();
