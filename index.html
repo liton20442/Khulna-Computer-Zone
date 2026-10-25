@@ -343,6 +343,16 @@ input:focus, select:focus, textarea:focus { border-color: var(--kcz-primary); ou
   #balancesheet > .card:first-of-type { padding-top: 6px !important; }
 }
 
+
+/* Products page: reduce blank space above Add Product */
+#products > .page-title { margin-bottom: 2px !important; }
+#products > .card:first-of-type { margin-top: 0 !important; padding-top: 7px !important; }
+#products > .card:first-of-type > h2 { margin-top: 0 !important; margin-bottom: 7px !important; }
+@media (max-width:650px) {
+  #products > .page-title { margin-bottom: 1px !important; }
+  #products > .card:first-of-type { padding-top: 6px !important; }
+}
+
 </style>
 
 <style id="dashboard-uniform-text-fix">
