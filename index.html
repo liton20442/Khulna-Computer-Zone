@@ -671,6 +671,40 @@ function printServiceBill(id){
 #appShell .kpi-card, #appShell .dashboard-card, #appShell .summary-card,
 #appShell .glance-card, #appShell .modal-content, #appShell .panel,
 #appShell .auth-card { background-color: #F2F8F6 !important; }
+
+
+/* Balance Sheet page — compact spacing and polished layout */
+#balancesheet > .page-title{
+  font-size:1.18rem!important; line-height:1.25!important;
+  margin:0 0 9px!important; color:#173b40;
+}
+#balancesheet > .card{
+  padding:12px 14px!important; margin:0 0 10px!important;
+  border-radius:11px!important;
+}
+#balancesheet > .card h2{
+  font-size:.96rem!important; line-height:1.3!important;
+  margin:0 0 9px!important; color:#23434a;
+}
+#balancesheet > .card .grid{gap:9px!important; margin-top:0!important;}
+#balancesheet > .card .field label{margin-bottom:4px!important;}
+#balancesheet > .card input{min-height:38px!important; padding:7px 9px!important;}
+#balancesheet > .card .actions{gap:7px!important; margin-top:0!important;}
+#balancesheet > .card .actions .btn{padding:8px 11px!important; font-size:.87rem!important;}
+#balancesheet > .card .info{margin:8px 0 0!important; padding:8px 10px!important; line-height:1.4!important;}
+#balancesheet #bsResult > .card{margin-top:0!important; margin-bottom:10px!important; padding:11px 13px!important;}
+#balancesheet #bsPeriodTitle{margin:0 0 8px!important;}
+#balancesheet #bsResult .report-grid{gap:7px!important;}
+#balancesheet #bsResult .report-box{padding:8px 9px!important;}
+@media(max-width:650px){
+  #balancesheet > .page-title{font-size:1.06rem!important; margin-bottom:7px!important;}
+  #balancesheet > .card{padding:10px!important; margin-bottom:9px!important;}
+  #balancesheet > .card h2{font-size:.91rem!important; margin-bottom:7px!important;}
+  #balancesheet > .card .grid{gap:7px!important;}
+  #balancesheet > .card .actions{gap:6px!important;}
+  #balancesheet > .card .actions .btn{padding:7px 9px!important; font-size:.82rem!important;}
+  #balancesheet > .card .info{padding:7px 8px!important; font-size:.82rem!important;}
+}
 </style>
 </head><body><div class="bill"><div class="top"><div class="shop"><h1>${esc(shopName)}</h1>${shopAddress?`<div>${esc(shopAddress)}</div>`:''}${shopPhone?`<div>Phone: ${esc(shopPhone)}</div>`:''}${shopEmail?`<div>Email: ${esc(shopEmail)}</div>`:''}</div><div class="tag"><h2>SERVICING BILL</h2><div><b>Bill No:</b> ${esc(x.billNo)}</div><div><b>Date:</b> ${esc(formatBillDate(x.date))}</div><div class="muted">Customer Copy</div></div></div><div class="meta"><div class="box"><h3>Customer Details</h3><p><b>${esc(x.customer||'')}</b></p>${x.phone?`<p>Mobile: ${esc(x.phone)}</p>`:''}</div><div class="box"><h3>Service Details</h3><p><b>Job ID:</b> ${esc(x.jobNo||x.id)}</p><p><b>Device:</b> ${esc(x.device||'')}${x.model?' / '+esc(x.model):''}</p>${x.technician?`<p><b>Technician:</b> ${esc(x.technician)}</p>`:''}<p><b>Status:</b> ${esc(x.status||'')}</p></div></div><table class="items"><thead><tr><th>SL</th><th>Description</th><th class="right">Amount</th></tr></thead><tbody><tr><td>1</td><td>Parts Cost</td><td class="right">${money(x.parts)}</td></tr><tr><td>2</td><td>Service Charge</td><td class="right">${money(x.charge)}</td></tr></tbody></table><table class="total"><tr><td>Total</td><td class="right">${money(total)}</td></tr><tr><td>Advance Paid</td><td class="right">${money(x.advance)}</td></tr><tr><td>Due Amount</td><td class="right">${money(x.due)}</td></tr></table>${x.problem?`<p><b>Problem / Work Description:</b> ${esc(x.problem)}</p>`:''}${x.note?`<p><b>Notes / Warranty:</b> ${esc(x.note)}</p>`:''}<div class="foot"><div><b>${esc(shopSettings?.footer||'Thank you for your business.')}</b><div class="muted" style="margin-top:5px">Please keep this bill for your records.</div></div><div class="sign">Customer / Authorized Signature</div></div><div class="no-print" style="text-align:center;margin-top:24px"><button onclick="window.print()" style="padding:10px 22px;background:#0f766e;color:white;border:0;border-radius:6px;font-weight:bold">Print Bill</button> <button onclick="window.close()" style="padding:10px 22px">Close</button></div></div><script>window.onload=function(){setTimeout(function(){window.print()},350)};<\/script></body></html>`);w.document.close();
 }
