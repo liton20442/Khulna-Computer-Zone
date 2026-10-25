@@ -400,6 +400,59 @@ input:focus, select:focus, textarea:focus { border-color: var(--kcz-primary); ou
 /* User request: make all on-screen KCZ app text non-bold while preserving size, color and layout. */
 #appShell, #appShell * { font-weight: 400 !important; }
 </style>
+
+<style id="kcz-professional-colorful-sidebar">
+/* Professional colorful left navigation panel */
+@media (min-width:651px) {
+  #mainNav.nav {
+    background: linear-gradient(165deg,#123f68 0%,#075b72 38%,#087f78 72%,#075e63 100%) !important;
+    border-right: 1px solid rgba(255,255,255,.12) !important;
+    box-shadow: 7px 0 24px rgba(9,54,74,.13) !important;
+    padding: 16px 10px 20px !important;
+    gap: 6px !important;
+  }
+  #mainNav.nav button {
+    color: #eaf7ff !important;
+    border: 1px solid transparent !important;
+    border-radius: 10px !important;
+    padding: 10px 12px !important;
+    background: rgba(255,255,255,.035) !important;
+    box-shadow: inset 3px 0 0 transparent;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  #mainNav.nav button:hover {
+    color: #fff !important;
+    background: rgba(255,255,255,.12) !important;
+    border-color: rgba(255,255,255,.12) !important;
+    transform: translateX(2px);
+  }
+  #mainNav.nav button.active {
+    color: #fff !important;
+    background: linear-gradient(100deg,rgba(36,211,190,.32),rgba(79,170,255,.19)) !important;
+    border-color: rgba(150,245,232,.26) !important;
+    box-shadow: inset 3px 0 0 #54f0d2, 0 5px 14px rgba(0,28,45,.12) !important;
+  }
+  #mainNav.nav button:last-child {
+    margin-top: auto;
+    background: rgba(255,255,255,.07) !important;
+    border-color: rgba(255,255,255,.13) !important;
+  }
+  #mainNav.nav button:last-child:hover {
+    background: rgba(255,111,111,.18) !important;
+    border-color: rgba(255,160,160,.3) !important;
+  }
+}
+@media (max-width:650px) {
+  #mainNav.nav {
+    background: linear-gradient(90deg,#123f68,#087f78) !important;
+    border-bottom-color: rgba(255,255,255,.15) !important;
+    box-shadow: 0 4px 14px rgba(9,54,74,.12) !important;
+  }
+  #mainNav.nav button { color:#eaf7ff !important; background:rgba(255,255,255,.07) !important; }
+  #mainNav.nav button.active { color:#fff !important; background:linear-gradient(100deg,#12a99d,#287bc0) !important; box-shadow:0 3px 10px rgba(0,0,0,.12) !important; }
+}
+</style>
+
 </head>
 <body>
 <div id="appShell" class="hidden"><header class="app-header"><div class="header-inner"><div class="brand" id="appBrand">▣ Khulna Computer Zone</div><div class="note" style="color:#d9fffb">Offline Shop Management</div></div></header>
