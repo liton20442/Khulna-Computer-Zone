@@ -853,6 +853,51 @@ function printServiceBill(id){
 .exit-backup-buttons button{width:100%;padding:11px 12px;border-radius:9px;font-weight:700}
 .exit-backup-buttons .backup-primary{background:#0f766e;color:#fff;border:1px solid #0f766e}
 .exit-backup-buttons .backup-secondary{background:#f1f6f6;color:#33474d;border:1px solid #d5e1e3}
+
+/* Dashboard main page: colorful professional cards, keeping app behavior unchanged */
+#dashboard > .card.business-glance,
+#dashboard > .card:has(.glance-grid) {
+  background: linear-gradient(140deg,#e4fbf5 0%,#f6fffc 100%) !important;
+  border-color:#b7e8dc !important;
+}
+#dashboard > .card:has(.overview-grid) {
+  background: linear-gradient(140deg,#e8f2ff 0%,#f8fbff 100%) !important;
+  border-color:#c6dcfa !important;
+}
+#dashboard > .card:has(#incomeChart) {
+  background: linear-gradient(140deg,#fff4e7 0%,#fffaf4 100%) !important;
+  border-color:#f2d9b8 !important;
+}
+#dashboard > .card:has(#todaySummary) {
+  background: linear-gradient(140deg,#f1eaff 0%,#fcf9ff 100%) !important;
+  border-color:#ddd0fb !important;
+}
+#dashboard > .card:has(.backup-actions) {
+  background: linear-gradient(140deg,#e5f7ff 0%,#f5fbff 100%) !important;
+  border-color:#c4e4f4 !important;
+}
+#dashboard .section-title {
+  display:block; padding:8px 10px; border-radius:8px;
+  background:linear-gradient(90deg,rgba(255,255,255,.88),rgba(255,255,255,.42));
+  border-left:4px solid #14a89a; color:#164e63 !important;
+}
+#dashboard .glance-grid .kpi:nth-child(4n+1) {background:linear-gradient(135deg,#d9f8ee,#f5fffb)!important;border-color:#b4e9d8!important}
+#dashboard .glance-grid .kpi:nth-child(4n+2) {background:linear-gradient(135deg,#dcecff,#f5f9ff)!important;border-color:#c1d9fa!important}
+#dashboard .glance-grid .kpi:nth-child(4n+3) {background:linear-gradient(135deg,#eee5ff,#faf7ff)!important;border-color:#d9c9fb!important}
+#dashboard .glance-grid .kpi:nth-child(4n) {background:linear-gradient(135deg,#ffebd8,#fff8f0)!important;border-color:#f2d4b1!important}
+#dashboard .glance-grid .kpi {box-shadow:0 3px 10px rgba(32,75,100,.06)!important;transition:transform .18s ease,box-shadow .18s ease}
+#dashboard .glance-grid .kpi:hover {transform:translateY(-2px);box-shadow:0 7px 16px rgba(32,75,100,.11)!important}
+#dashboard .overview-box:nth-child(5n+1) {background:linear-gradient(135deg,#d9f8ee,#f6fffb)!important;border-color:#b4e9d8!important}
+#dashboard .overview-box:nth-child(5n+2) {background:linear-gradient(135deg,#dcecff,#f7fbff)!important;border-color:#c1d9fa!important}
+#dashboard .overview-box:nth-child(5n+3) {background:linear-gradient(135deg,#fff0dc,#fffaf3)!important;border-color:#f2d8b7!important}
+#dashboard .overview-box:nth-child(5n+4) {background:linear-gradient(135deg,#eee5ff,#fbf8ff)!important;border-color:#d9c9fb!important}
+#dashboard .overview-box:nth-child(5n) {background:linear-gradient(135deg,#dff5ff,#f5fcff)!important;border-color:#bfe5f4!important}
+#dashboard .overview-box strong {color:#155e75!important}
+#dashboard #todaySummary {background:rgba(255,255,255,.68);border-radius:9px;padding:12px}
+#dashboard #incomeChart {background:rgba(255,255,255,.7);border-radius:10px}
+#dashboard .backup-actions button {box-shadow:0 4px 10px rgba(15,118,110,.14)!important}
+@media(max-width:900px){#dashboard > .card{padding:13px!important}}
+
 </style>
 </head><body><div class="bill"><div class="top"><div class="shop"><h1>${esc(shopName)}</h1>${shopAddress?`<div>${esc(shopAddress)}</div>`:''}${shopPhone?`<div>Phone: ${esc(shopPhone)}</div>`:''}${shopEmail?`<div>Email: ${esc(shopEmail)}</div>`:''}</div><div class="tag"><h2>SERVICING BILL</h2><div><b>Bill No:</b> ${esc(x.billNo)}</div><div><b>Date:</b> ${esc(formatBillDate(x.date))}</div><div class="muted">Customer Copy</div></div></div><div class="meta"><div class="box"><h3>Customer Details</h3><p><b>${esc(x.customer||'')}</b></p>${x.phone?`<p>Mobile: ${esc(x.phone)}</p>`:''}</div><div class="box"><h3>Service Details</h3><p><b>Job ID:</b> ${esc(x.jobNo||x.id)}</p><p><b>Device:</b> ${esc(x.device||'')}${x.model?' / '+esc(x.model):''}</p>${x.technician?`<p><b>Technician:</b> ${esc(x.technician)}</p>`:''}<p><b>Status:</b> ${esc(x.status||'')}</p></div></div><table class="items"><thead><tr><th>SL</th><th>Description</th><th class="right">Amount</th></tr></thead><tbody><tr><td>1</td><td>Parts Cost</td><td class="right">${money(x.parts)}</td></tr><tr><td>2</td><td>Service Charge</td><td class="right">${money(x.charge)}</td></tr></tbody></table><table class="total"><tr><td>Total</td><td class="right">${money(total)}</td></tr><tr><td>Advance Paid</td><td class="right">${money(x.advance)}</td></tr><tr><td>Due Amount</td><td class="right">${money(x.due)}</td></tr></table>${x.problem?`<p><b>Problem / Work Description:</b> ${esc(x.problem)}</p>`:''}${x.note?`<p><b>Notes / Warranty:</b> ${esc(x.note)}</p>`:''}<div class="foot"><div><b>${esc(shopSettings?.footer||'Thank you for your business.')}</b><div class="muted" style="margin-top:5px">Please keep this bill for your records.</div></div><div class="sign">Customer / Authorized Signature</div></div><div class="no-print" style="text-align:center;margin-top:24px"><button onclick="window.print()" style="padding:10px 22px;background:#0f766e;color:white;border:0;border-radius:6px;font-weight:bold">Print Bill</button> <button onclick="window.close()" style="padding:10px 22px">Close</button></div></div><div id="exitBackupReminder" class="exit-backup-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="exitBackupTitle">
   <div class="exit-backup-box">
