@@ -355,7 +355,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--kcz-primary); ou
 
 
 /* Logout backup reminder - main app page */
-.exit-backup-overlay{position:fixed;inset:0;z-index:9999;background:rgba(12,32,38,.58);display:flex;align-items:center;justify-content:center;padding:18px}
+.exit-backup-overlay{position:fixed;inset:0;z-index:9999;background:rgba(12,32,38,.08);display:flex;align-items:center;justify-content:center;padding:18px}
 .exit-backup-overlay.hidden{display:none!important}
 .exit-backup-box{width:min(440px,100%);background:#fff;border:1px solid #d8e7e5;border-radius:16px;padding:22px;box-shadow:0 18px 60px rgba(0,0,0,.2);text-align:center;color:#17212b}
 .exit-backup-box h2{margin:0 0 9px;color:#123b46;font-size:1.18rem}
@@ -816,10 +816,10 @@ function authHash(value){return crypto.subtle.digest('SHA-256',new TextEncoder()
 function getAuth(){try{return JSON.parse(localStorage.getItem(AUTH_KEY)||'null')}catch(e){return null}}
 function setupAuthUI(){const account=getAuth();$('authScreen').classList.remove('hidden');$('mainNav').classList.add('hidden');$('appShell').classList.add('hidden');if(!account){$('setupForm').classList.remove('hidden');$('loginForm').classList.add('hidden')}else{$('setupForm').classList.add('hidden');$('loginForm').classList.remove('hidden');$('loginUsername').value=localStorage.getItem('kczRememberedUsername')||'';$('rememberPassword').checked=localStorage.getItem('kczRememberPasswordEnabled')!=='no';$('loginPassword').value=localStorage.getItem('kczRememberPasswordEnabled')==='yes'?(localStorage.getItem('kczRememberedPassword')||''):'';$('loginPassword').placeholder='Enter password';$('loginHelp').textContent='Enter your password to sign in.'}}
 function showAuthenticatedApp(){sessionStorage.setItem('kczActiveLoginSession','yes');$('authScreen').classList.add('hidden');$('mainNav').classList.remove('hidden');$('appShell').classList.remove('hidden');showPage('dashboard');updateDashboard();drawIncomeChart()}
-function logout(){ $('exitBackupReminder').classList.remove('hidden'); }
+function logout(){window.kczPageBeforeLogout=document.querySelector('.page.active')?.id||'dashboard';$('exitBackupReminder').classList.remove('hidden');}
 async function backupThenLogout(){const ok=await backupData();if(ok){$('exitBackupReminder').classList.add('hidden');finishLogout();}}
 function logoutWithoutBackup(){ $('exitBackupReminder').classList.add('hidden');finishLogout(); }
-function cancelLogout(){const reminder=document.getElementById('exitBackupReminder');if(reminder)reminder.classList.add('hidden');const shell=document.getElementById('appShell');const nav=document.getElementById('mainNav');const auth=document.getElementById('authScreen');if(shell)shell.classList.remove('hidden');if(nav)nav.classList.remove('hidden');if(auth)auth.classList.add('hidden');sessionStorage.setItem('kczActiveLoginSession','yes');}
+function cancelLogout(){const reminder=$('exitBackupReminder');if(reminder)reminder.classList.add('hidden');const page=window.kczPageBeforeLogout||'dashboard';showPage(page);updateDashboard();drawIncomeChart();}
 function finishLogout(){localStorage.setItem('kczRememberedUsername',$('loginUsername')?.value||getAuth()?.username||'');sessionStorage.removeItem('kczActiveLoginSession');setupAuthUI()}
 function clearRememberedLogin(){localStorage.removeItem(TRUST_KEY);localStorage.removeItem('kczRememberedUsername');localStorage.removeItem('kczRememberedPassword');localStorage.removeItem('kczRememberPasswordEnabled');$('loginUsername').value='';$('loginPassword').value='';$('rememberPassword').checked=false;$('loginPassword').placeholder='Enter password';$('loginHelp').textContent='Saved username and password cleared. Enter them again.';$('loginUsername').focus()}
 $('setupForm').addEventListener('submit',async e=>{e.preventDefault();const username=$('setupUsername').value.trim(),password=$('setupPassword').value,confirmPassword=$('setupConfirm').value;if(!username||password.length<4)return alert('Enter a username and a password with at least 4 characters.');if(password!==confirmPassword)return alert('Passwords do not match.');localStorage.setItem(AUTH_KEY,JSON.stringify({username,hash:await authHash(password)}));localStorage.setItem('kczRememberedUsername',username);localStorage.setItem(TRUST_KEY,'trusted');showAuthenticatedApp()});
