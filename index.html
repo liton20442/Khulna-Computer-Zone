@@ -699,7 +699,7 @@ async function backupData(){
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 5000);
-    alert('Backup download started. Check your Downloads folder.');
+    // Backup download confirmation alert disabled to avoid requiring an extra click.
     return true;
   } catch (downloadError) {
     console.error('Backup download failed:', downloadError);
