@@ -453,6 +453,37 @@ input:focus, select:focus, textarea:focus { border-color: var(--kcz-primary); ou
 }
 </style>
 
+
+<style id="kcz-dashboard-final-refresh">
+/* Dashboard visual refresh only: preserve all existing app functions */
+#dashboard{display:grid!important;grid-template-columns:minmax(0,1.55fr) minmax(280px,.9fr);grid-template-areas:"overview glance" "income glance" "activity glance" "backup backup";gap:16px;align-items:stretch;padding-bottom:18px}
+#dashboard>.business-glance{grid-area:glance;align-self:stretch;background:linear-gradient(155deg,#e0f2fe 0%,#eff6ff 48%,#f5f3ff 100%)!important;border:1px solid #c7dff7!important;border-radius:18px!important;box-shadow:0 8px 22px rgba(37,99,235,.09)!important;padding:18px!important}
+#dashboard>.card:has(.overview-grid){grid-area:overview;background:linear-gradient(135deg,#ecfdf5,#f0fdfa)!important;border-color:#bce7d5!important}
+#dashboard>.card:has(#incomeChart){grid-area:income;background:linear-gradient(135deg,#fff7ed,#fffbeb)!important;border-color:#fed7aa!important}
+#dashboard>.card:has(#todaySummary){grid-area:activity;background:linear-gradient(135deg,#f5f3ff,#faf5ff)!important;border-color:#ddd6fe!important}
+#dashboard>.card:has(.backup-actions){grid-area:backup;background:linear-gradient(135deg,#f8fafc,#eff6ff)!important;border-color:#cbd5e1!important}
+#dashboard>.card{min-width:0;margin:0!important;padding:17px!important;border-radius:17px!important;box-shadow:0 6px 18px rgba(15,23,42,.055)!important}
+#dashboard .section-title{font-size:1.02rem!important;font-weight:650!important;color:#1e3a5f!important;line-height:1.35;margin:0 0 13px!important}
+#dashboard .card>.section-title{text-align:left!important}
+#dashboard>.business-glance>.section-title{text-align:center!important;color:#1d4ed8!important;margin-bottom:16px!important}
+#dashboard .overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+#dashboard .overview-box{min-width:0;text-align:left;padding:13px 12px;border-radius:13px;background:rgba(255,255,255,.86)!important;border:1px solid rgba(16,185,129,.18)!important;box-shadow:0 2px 7px rgba(16,185,129,.035)}
+#dashboard .overview-box .small{font-size:.79rem;color:#64748b!important;line-height:1.4}
+#dashboard .overview-box strong{font-size:1.15rem;color:#047857!important;font-weight:650!important;overflow-wrap:anywhere;margin-top:6px}
+#dashboard>.business-glance .glance-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important}
+#dashboard .glance-grid .kpi{min-width:0;margin:0!important;padding:15px 12px!important;border-radius:14px!important;border:1px solid rgba(59,130,246,.17)!important;background:rgba(255,255,255,.86)!important;box-shadow:0 3px 9px rgba(30,64,175,.035)!important}
+#dashboard .glance-grid .kpi .label{font-size:.77rem!important;color:#64748b!important;font-weight:500!important;line-height:1.4}
+#dashboard .glance-grid .kpi .value{font-size:1.15rem!important;font-weight:650!important;color:#1d4ed8!important;overflow-wrap:anywhere;line-height:1.35}
+#dashboard #incomeChart{display:block;width:100%;max-height:230px}
+#dashboard .note,#dashboard .info{font-size:.78rem;color:#64748b!important;line-height:1.5;margin-top:9px}
+#dashboard #todaySummary{color:#475569!important;line-height:1.7;font-size:.9rem}
+#dashboard .backup-actions{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:10px}
+#dashboard .backup-actions button{border:0!important;border-radius:10px!important;padding:10px 17px!important;font-weight:550!important;background:linear-gradient(135deg,#2563eb,#4f46e5)!important;color:white!important;box-shadow:0 3px 8px rgba(37,99,235,.15)}
+#dashboard .backup-actions button:nth-child(2){background:linear-gradient(135deg,#0f766e,#0d9488)!important}
+@media(max-width:900px){#dashboard{grid-template-columns:minmax(0,1fr);grid-template-areas:"glance" "overview" "income" "activity" "backup";gap:12px}#dashboard>.business-glance .glance-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#dashboard>.card{padding:14px!important}}
+@media(max-width:420px){#dashboard .overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#dashboard .overview-box{padding:11px 9px}#dashboard .overview-box strong{font-size:1.02rem}#dashboard .glance-grid .kpi{padding:12px 9px!important}#dashboard .glance-grid .kpi .value{font-size:1.02rem!important}}
+</style>
+
 </head>
 <body>
 <div id="appShell" class="hidden"><header class="app-header"><div class="header-inner"><div class="brand" id="appBrand">▣ Khulna Computer Zone</div><div class="note" style="color:#d9fffb">Offline Shop Management</div></div></header>
