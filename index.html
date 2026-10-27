@@ -733,6 +733,7 @@ async function backupData(){
       if (canShareFile) {
         try {
           await navigator.share({ title: 'Khulna Computer Zone Backup', text: 'Khulna Computer Zone complete backup.', files: [file] });
+          alert('Backup successful!');
           return true;
         } catch (shareError) {
           if (shareError && shareError.name === 'AbortError') return false;
@@ -755,7 +756,7 @@ async function backupData(){
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 5000);
-    // Backup download confirmation alert disabled to avoid requiring an extra click.
+    alert('Backup successful! Backup file saved/download started.');
     return true;
   } catch (downloadError) {
     console.error('Backup download failed:', downloadError);
